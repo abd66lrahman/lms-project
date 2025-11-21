@@ -1,0 +1,106 @@
+[
+  {
+    "id": 2,
+    "title": "1984",
+    "author": "George Orwell",
+    "isbn": "978-0451524935",
+    "category": "Fiction",
+    "available": true
+  },
+  {
+    "id": 3,
+    "title": "Sapiens",
+    "author": "Yuval Noah Harari",
+    "isbn": "978-0062316097",
+    "category": "History",
+    "available": true
+  },
+  {
+    "id": 4,
+    "title": "Spider man1 ",
+    "author": "Marvel ",
+    "isbn": "978-0451524123",
+    "category": "action",
+    "available": true
+  },
+  {
+    "id": 5,
+    "title": "Spider man2 ",
+    "author": "Marvel ",
+    "isbn": "978-0451524123",
+    "category": "action",
+    "available": true
+  },
+  {
+    "id": 6,
+    "title": "Spider man 3 ",
+    "author": "Marvel ",
+    "isbn": "978-0451524123",
+    "category": "action",
+    "available": true,
+    "borrowedBy": null,
+    "borrowedAt": null,
+    "dueDate": null
+  },
+  {
+    "id": 7,
+    "title": "Avengers End Game",
+    "author": "Marvel ",
+    "isbn": "978-0451524123",
+    "category": "action",
+    "available": true,
+    "role": "admin"
+  },
+  {
+    "id": 8,
+    "title": "chainsaw man",
+    "author": "studio mapa",
+    "isbn": "978-0451524123",
+    "category": "action",
+    "available": true,
+    "role": "admin",
+    "borrowedBy": null,
+    "borrowedAt": null,
+    "dueDate": null
+  },
+  {
+    "id": 9,
+    "title": "chainsaw man",
+    "author": "studio mapa",
+    "isbn": "978-0451524123",
+    "category": "action",
+    "available": true,
+    "role": "admin"
+  },
+  {
+    "id": 10,
+    "title": "chainsaw man",
+    "author": "studio mapa",
+    "isbn": "978-0451524123",
+    "category": "action",
+    "available": true,
+    "role": "admin"
+  },
+  {
+    "id": 11,
+    "title": "Chainsaw Man Vol 3",
+    "author": "Tatsuki Fujimoto",
+    "category": "action",
+    "available": true
+  },
+  {
+    "id": 12,
+    "title": "Chainsaw Man Vol 4",
+    "author": "Tatsuki Fujimoto",
+    "category": "action",
+    "available": true
+  },
+  {
+    "id": 13,
+    "title": "1994",
+    "author": "George Orwell",
+    "isbn": "978-0451524935",
+    "category": "Dystopian",
+    "available": true
+  }
+]

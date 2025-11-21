@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "role": "Admin",
+    "name": "Abdelrahman ashraf",
+    "email": "admin1@lms.com",
+    "password": "admin1234"
+  },
+  {
+    "id": 2,
+    "role": "admin",
+    "name": "Abdelrahman gamal",
+    "email": "admin2@lms.com",
+    "password": "admin5678"
+  },
+  {
+    "id": 3,
+    "role": "admin",
+    "name": "Omar saber",
+    "email": "member1@lms.com",
+    "password": "hello,world"
+  },
+  {
+    "id": 4,
+    "role": "admin",
+    "name": "Abdelbaset rezk",
+    "email": "member2@lms.com",
+    "password": "eddieTheDucky"
+  },
+  {
+    "id": 5,
+    "role": "member",
+    "name": "ali emad",
+    "email": "hello2@lms.com",
+    "password": "fuckoff123"
+  },
+  {
+    "id": 6,
+    "name": "taylor joseph",
+    "email": "tay123@gmail.com",
+    "password": "tay9090",
+    "role": "member"
+  }
+]
