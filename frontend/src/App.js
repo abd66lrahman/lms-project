@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback } from "react";
 import { Eye, EyeOff, LogOut, Book, Search, Filter } from "lucide-react";
 import { AdminPanel } from "./AdminPanel";
 import Auth from "./Auth";
+import ThemeToggle from './ThemeToggle';
+import "./admin.css";
 
 const API = "http://localhost:3000/api";
 
@@ -257,19 +259,23 @@ export default function App() {
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <Book className="w-6 h-6 text-blue-600" />
-            <h1 className="text-2xl font-bold text-gray-900">LMS</h1>
+          <div className="flex items-center gap-4">
+            <div className="logo-brand">
+              <span className="logo-text">Yalla<span className="logo-accent">Library</span></span>
+              <Book size={24} className="logo-svg" aria-hidden />
+            </div>
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-gray-700">
-              Welcome, <strong>{user.name}</strong>
-            </span>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
-            >
-              <LogOut size={18} /> Logout
+            <ThemeToggle />
+            <div className="admin-user">
+              <div className="avatar">{user.name ? user.name.charAt(0).toUpperCase() : 'U'}</div>
+              <div className="admin-info">
+                <div className="admin-name">Welcome, <strong>{user.name}</strong></div>
+              </div>
+            </div>
+            <button onClick={handleLogout} className="logout-btn">
+              <span className="logout-icon">↪</span>
+              <span className="logout-text">Logout</span>
             </button>
           </div>
         </div>

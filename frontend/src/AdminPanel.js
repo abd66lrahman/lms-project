@@ -9,6 +9,7 @@ import {
   LogOut,
   Book,
 } from "lucide-react";
+import ThemeToggle from './ThemeToggle';
 
 import "./admin.css";
 
@@ -279,6 +280,7 @@ export function AdminPanel({ user, onLogout }) {
   const cancelEdit = () => {
     setEditingId(null);
     setFormData({ title: "", author: "", category: "", isbn: "" });
+    setShowAddForm(false);
   };
 
   return (
@@ -286,19 +288,27 @@ export function AdminPanel({ user, onLogout }) {
       {/* Header */}
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <Book className="w-6 h-6 text-red-600" />
-            <h1 className="text-2xl font-bold text-gray-900">Admin Panel</h1>
+          <div className="flex items-center gap-4">
+            <div className="logo-brand">
+              <span className="logo-text">Yalla<span className="logo-accent">Library</span></span>
+              <Book size={24} className="logo-svg" aria-hidden />
+            </div>
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-gray-700">
-              <strong>{user.name}</strong> (Admin)
-            </span>
+            <ThemeToggle />
+            <div className="admin-user">
+              <div className="avatar">AD</div>
+              <div className="admin-info">
+                <div className="admin-name">{user.name}</div>
+                <div className="admin-role">Admin</div>
+              </div>
+            </div>
             <button
               onClick={onLogout}
-              className="flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
+              className="logout-btn"
             >
-              <LogOut size={18} /> Logout
+              <span className="logout-icon">↪</span>
+              <span className="logout-text">Logout</span>
             </button>
           </div>
         </div>
@@ -316,34 +326,22 @@ export function AdminPanel({ user, onLogout }) {
       {/* Tabs */}
       <div className="bg-white border-b sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex gap-8">
+          <div className="admin-tabs">
             <button
               onClick={() => setActiveTab("books")}
-              className={`py-4 px-4 border-b-2 font-semibold transition ${
-                activeTab === "books"
-                  ? "border-blue-600 text-blue-600"
-                  : "border-transparent text-gray-600 hover:text-gray-900"
-              }`}
+              className={`admin-tab ${activeTab === "books" ? "tab-active" : ""}`}
             >
               <Book size={18} className="inline mr-2" /> Books
             </button>
             <button
               onClick={() => setActiveTab("users")}
-              className={`py-4 px-4 border-b-2 font-semibold transition ${
-                activeTab === "users"
-                  ? "border-blue-600 text-blue-600"
-                  : "border-transparent text-gray-600 hover:text-gray-900"
-              }`}
+              className={`admin-tab ${activeTab === "users" ? "tab-active" : ""}`}
             >
               <Users size={18} className="inline mr-2" /> Users
             </button>
             <button
               onClick={() => setActiveTab("stats")}
-              className={`py-4 px-4 border-b-2 font-semibold transition ${
-                activeTab === "stats"
-                  ? "border-blue-600 text-blue-600"
-                  : "border-transparent text-gray-600 hover:text-gray-900"
-              }`}
+              className={`admin-tab ${activeTab === "stats" ? "tab-active" : ""}`}
             >
               <BarChart3 size={18} className="inline mr-2" /> Stats & Export
             </button>

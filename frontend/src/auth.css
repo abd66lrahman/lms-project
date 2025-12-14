@@ -1,12 +1,44 @@
 @import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap');
 
 :root {
-    --left-grad-1: #d81b60;
-    --left-grad-2: #8a2be2;
+    /* pink-first hero */
+    --left-grad-1: #ff2d6f;
+    --left-grad-2: #ff6fa3;
     --card-bg: #ffffff;
     --muted: #6b7280;
-    --accent-start: #d81b60;
-    --accent-end: #8a2be2;
+    --accent-start: #ff2d6f;
+    --accent-end: #ff6fa3;
+}
+
+/* Theme toggle button (shared) */
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    background: #fff;
+    border: 0;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(2, 6, 23, 0.06);
+    color: var(--accent-end);
+    transition: all 0.22s ease;
+}
+
+.theme-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(2, 6, 23, 0.1);
+}
+
+
+/* Smooth transitions */
+body,
+.auth-wrapper,
+.auth-card,
+.auth-input,
+.gradient-btn {
+    transition: background-color .28s ease, color .22s ease, box-shadow .22s ease, transform .18s ease;
 }
 
 * {
@@ -79,7 +111,9 @@ body {
     align-items: center;
     justify-content: center;
     padding: 60px;
-    background: #ffffff
+    background: #ffffff;
+    position: relative;
+    /* For absolute positioning of toggle */
 }
 
 .auth-card {
@@ -234,5 +268,69 @@ body {
 
     .brand-title {
         font-size: 32px
+    }
+}
+
+/* Dark Mode Overrides */
+:root:has(.dark),
+.dark body {
+    background: #111827;
+    color: #f3f4f6;
+}
+
+.dark .auth-form-side {
+    background: #111827;
+    /* Dark background for form side */
+}
+
+.dark .auth-header h2 {
+    color: #f3f4f6;
+}
+
+.dark .auth-header .muted {
+    color: #9ca3af;
+}
+
+.dark .input-group {
+    background: #1f2937;
+    border-color: #374151;
+}
+
+.dark .input-icon {
+    color: #9ca3af;
+}
+
+.dark .auth-input {
+    color: #f3f4f6;
+}
+
+.dark .auth-input::placeholder {
+    color: #6b7280;
+}
+
+.dark .theme-toggle {
+    background: #1f2937;
+    color: #fbbf24;
+    /* Yellow/Gold for Moon/Sun */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.dark .auth-card {
+    background: transparent;
+    box-shadow: none;
+}
+
+/* Positioning toggle in auth page */
+.auth-form-side .theme-toggle {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    z-index: 10;
+}
+
+@media (max-width: 1000px) {
+    .auth-form-side .theme-toggle {
+        top: 20px;
+        right: 20px;
     }
 }
