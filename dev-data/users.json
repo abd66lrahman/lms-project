@@ -40,5 +40,12 @@
     "email": "tay123@gmail.com",
     "password": "tay9090",
     "role": "member"
+  },
+  {
+    "id": 7,
+    "name": "aloca",
+    "email": "member7@lms.com",
+    "password": "1234567",
+    "role": "member"
   }
 ]

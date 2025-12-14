@@ -7,7 +7,7 @@ import { restrictTo } from "./../middleware/auth.js";
 
 const Router = express.Router();
 
-Router.get("/users/:id", restrictTo("admin", "member"), getUserHistory);
+Router.get("/users/:id", getUserHistory);
 
 Router.get("/books/:id", restrictTo("admin"), getBookHistory);
 

@@ -16,5 +16,178 @@
     "dueDate": "2025-11-28",
     "returned": true,
     "returnDate": "2025-11-21"
+  },
+  {
+    "id": 3,
+    "bookId": 3,
+    "userId": 4,
+    "borrowDate": "2025-12-13",
+    "dueDate": "2025-12-20",
+    "returned": false
+  },
+  {
+    "id": 4,
+    "bookId": 2,
+    "userId": 7,
+    "borrowDate": "2025-12-13",
+    "dueDate": "2025-12-20",
+    "returned": false
+  },
+  {
+    "id": 5,
+    "bookId": 4,
+    "userId": 5,
+    "borrowDate": "2025-12-13",
+    "dueDate": "2025-12-20",
+    "returned": true,
+    "returnDate": "2025-12-13"
+  },
+  {
+    "id": 6,
+    "bookId": 6,
+    "userId": 5,
+    "borrowDate": "2025-12-13",
+    "dueDate": "2025-12-20",
+    "returned": true,
+    "returnDate": "2025-12-13"
+  },
+  {
+    "id": 7,
+    "bookId": 9,
+    "userId": 5,
+    "borrowDate": "2025-12-13",
+    "dueDate": "2025-12-20",
+    "returned": true,
+    "returnDate": "2025-12-13"
+  },
+  {
+    "id": 8,
+    "bookId": 7,
+    "userId": 5,
+    "borrowDate": "2025-12-13",
+    "dueDate": "2025-12-20",
+    "returned": true,
+    "returnDate": "2025-12-13"
+  },
+  {
+    "id": 9,
+    "bookId": 7,
+    "userId": 5,
+    "borrowDate": "2025-12-13",
+    "dueDate": "2025-12-20",
+    "returned": true,
+    "returnDate": "2025-12-13"
+  },
+  {
+    "id": 10,
+    "bookId": 5,
+    "userId": 5,
+    "borrowDate": "2025-12-13",
+    "dueDate": "2025-12-20",
+    "returned": true,
+    "returnDate": "2025-12-13"
+  },
+  {
+    "id": 11,
+    "bookId": 13,
+    "userId": 5,
+    "borrowDate": "2025-12-13",
+    "dueDate": "2025-12-20",
+    "returned": true,
+    "returnDate": "2025-12-13"
+  },
+  {
+    "id": 12,
+    "bookId": 4,
+    "userId": 5,
+    "borrowDate": "2025-12-13",
+    "dueDate": "2025-12-20",
+    "returned": true,
+    "returnDate": "2025-12-13"
+  },
+  {
+    "id": 13,
+    "bookId": 6,
+    "userId": 5,
+    "borrowDate": "2025-12-13",
+    "dueDate": "2025-12-20",
+    "returned": true,
+    "returnDate": "2025-12-13"
+  },
+  {
+    "id": 14,
+    "bookId": 5,
+    "userId": 5,
+    "borrowDate": "2025-12-13",
+    "dueDate": "2025-12-20",
+    "returned": true,
+    "returnDate": "2025-12-13"
+  },
+  {
+    "id": 15,
+    "bookId": 10,
+    "userId": 5,
+    "borrowDate": "2025-12-13",
+    "dueDate": "2025-12-20",
+    "returned": true,
+    "returnDate": "2025-12-13"
+  },
+  {
+    "id": 16,
+    "bookId": 7,
+    "userId": 5,
+    "borrowDate": "2025-12-13",
+    "dueDate": "2025-12-20",
+    "returned": true,
+    "returnDate": "2025-12-13"
+  },
+  {
+    "id": 17,
+    "bookId": 9,
+    "userId": 5,
+    "borrowDate": "2025-12-13",
+    "dueDate": "2025-12-20",
+    "returned": true,
+    "returnDate": "2025-12-13"
+  },
+  {
+    "id": 18,
+    "bookId": 4,
+    "userId": 5,
+    "borrowDate": "2025-12-13",
+    "dueDate": "2025-12-20",
+    "returned": false
+  },
+  {
+    "id": 19,
+    "bookId": 5,
+    "userId": 5,
+    "borrowDate": "2025-12-13",
+    "dueDate": "2025-12-20",
+    "returned": false
+  },
+  {
+    "id": 20,
+    "bookId": 6,
+    "userId": 5,
+    "borrowDate": "2025-12-13",
+    "dueDate": "2025-12-20",
+    "returned": false
+  },
+  {
+    "id": 21,
+    "bookId": 7,
+    "userId": 5,
+    "borrowDate": "2025-12-13",
+    "dueDate": "2025-12-20",
+    "returned": false
+  },
+  {
+    "id": 22,
+    "bookId": 8,
+    "userId": 5,
+    "borrowDate": "2025-12-13",
+    "dueDate": "2025-12-20",
+    "returned": false
   }
 ]

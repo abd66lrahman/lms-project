@@ -180,4 +180,25 @@ const signIn = (req, res) => {
   });
 };
 
-export { signUp, signIn };
+const getAllUsers = (req, res) => {
+  try {
+    const users = getUsers();
+
+    // Remove passwords from response
+    const usersWithoutPasswords = users.map(({ password, ...user }) => user);
+
+    res.status(200).json({
+      status: "success",
+      results: usersWithoutPasswords.length,
+      data: usersWithoutPasswords,
+    });
+  } catch (err) {
+    console.error("Error fetching users:", err);
+    res.status(500).json({
+      status: "error",
+      message: "Error fetching users",
+    });
+  }
+};
+
+export { signUp, signIn,getAllUsers };

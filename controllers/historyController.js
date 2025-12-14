@@ -11,12 +11,6 @@ const getUserHistory = (req, res) => {
     });
   }
 
-  if (req.user.role === "member" && req.user.id !== userId) {
-    return res.status(403).json({
-      status: "fail",
-      message: "You can only view your own borrowing history",
-    });
-  }
   const history = borrowSheet
     .filter((b) => b.userId === userId)
     .map((b) => {
@@ -33,11 +27,11 @@ const getUserHistory = (req, res) => {
       };
     });
 
-  // Check if user has any history
   if (history.length === 0) {
-    return res.status(404).json({
-      status: "fail",
-      message: "No borrowing history found for this user",
+    return res.status(200).json({
+      status: "success",
+      results: 0,
+      data: { history: [] },
     });
   }
 

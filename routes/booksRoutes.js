@@ -22,15 +22,8 @@ Router.post(
 
 Router.post("/", restrictTo("admin"), booksController.addBook);
 
-Router.route("/export/books").get(
-  restrictTo("admin"),
-  booksController.exportBooks
-);
-
-Router.route("/export/history").get(
-  restrictTo("admin"),
-  booksController.exportHistory
-);
+Router.route("/export/books").get(booksController.exportBooks);
+Router.route("/export/history").get(booksController.exportHistory);
 
 Router.route("/:id")
   .patch(restrictTo("admin"), booksController.editBook)

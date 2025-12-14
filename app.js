@@ -10,7 +10,7 @@ export const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // Your Vite dev server
+    origin: ["http://localhost:3000", "http://localhost:3001"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],

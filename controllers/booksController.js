@@ -297,10 +297,55 @@ const filterBook = (req, res) => {
 };
 
 const exportBooks = (req, res) => {
+  // ✅ Debug logs
+  console.log("Export Books - Full query:", req.query);
+  console.log("Export Books - userId:", req.query.userId);
+
+  const userId = Number(req.query.userId);
+
+  console.log("Export Books - userId as number:", userId);
+  console.log("Export Books - isNaN check:", isNaN(userId));
+
+  if (!userId || isNaN(userId)) {
+    console.log("Export Books - REJECTED: Invalid userId");
+    return res.status(401).json({
+      status: "fail",
+      message: "User ID is required and must be a valid number",
+    });
+  }
+
+  // ✅ Get users to check role
+  const USERS_PATH = `${__dirname}/../dev-data/users.json`;
+  const users = JSON.parse(fs.readFileSync(USERS_PATH));
+  const user = users.find((u) => u.id === userId);
+
+  console.log("Export Books - User found:", user);
+
+  // ✅ Verify user is admin
+  if (!user) {
+    console.log("Export Books - REJECTED: User not found");
+    return res.status(403).json({
+      status: "fail",
+      message: "User not found",
+    });
+  }
+
+  if (user.role !== "admin") {
+    console.log("Export Books - REJECTED: User is not admin, role:", user.role);
+    return res.status(403).json({
+      status: "fail",
+      message: "Only admins can export data",
+    });
+  }
+
+  console.log("Export Books - SUCCESS: Exporting for admin user");
+
+  // ✅ If admin, proceed with export
   const csv = [
-    "id,title,author,category,available",
+    "id,title,author,category,isbn,available",
     ...books.map(
-      (b) => `${b.id},${b.title},${b.author},${b.category || ""},${b.available}`
+      (b) =>
+        `${b.id},${b.title},${b.author},${b.category || ""},${b.isbn},${b.available}`
     ),
   ].join("\n");
 
@@ -310,6 +355,53 @@ const exportBooks = (req, res) => {
 };
 
 const exportHistory = (req, res) => {
+  // ✅ Debug logs
+  console.log("Export History - Full query:", req.query);
+  console.log("Export History - userId:", req.query.userId);
+
+  const userId = Number(req.query.userId);
+
+  console.log("Export History - userId as number:", userId);
+  console.log("Export History - isNaN check:", isNaN(userId));
+
+  if (!userId || isNaN(userId)) {
+    console.log("Export History - REJECTED: Invalid userId");
+    return res.status(401).json({
+      status: "fail",
+      message: "User ID is required and must be a valid number",
+    });
+  }
+
+  // ✅ Get users to check role
+  const USERS_PATH = `${__dirname}/../dev-data/users.json`;
+  const users = JSON.parse(fs.readFileSync(USERS_PATH));
+  const user = users.find((u) => u.id === userId);
+
+  console.log("Export History - User found:", user);
+
+  // ✅ Verify user is admin
+  if (!user) {
+    console.log("Export History - REJECTED: User not found");
+    return res.status(403).json({
+      status: "fail",
+      message: "User not found",
+    });
+  }
+
+  if (user.role !== "admin") {
+    console.log(
+      "Export History - REJECTED: User is not admin, role:",
+      user.role
+    );
+    return res.status(403).json({
+      status: "fail",
+      message: "Only admins can export data",
+    });
+  }
+
+  console.log("Export History - SUCCESS: Exporting for admin user");
+
+  // ✅ If admin, proceed with export
   const csv = [
     "borrowId,bookId,userId,borrowedOn,dueDate,returned,returnedOn",
     ...borrowSheet.map(
@@ -322,7 +414,6 @@ const exportHistory = (req, res) => {
   res.attachment("history.csv");
   res.send(csv);
 };
-
 export {
   getBooks,
   getBook,

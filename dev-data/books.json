@@ -1,19 +1,11 @@
 [
   {
-    "id": 2,
-    "title": "1984",
-    "author": "George Orwell",
-    "isbn": "978-0451524935",
-    "category": "Fiction",
-    "available": true
-  },
-  {
     "id": 3,
     "title": "Sapiens",
     "author": "Yuval Noah Harari",
     "isbn": "978-0062316097",
     "category": "History",
-    "available": true
+    "available": false
   },
   {
     "id": 4,
@@ -21,7 +13,10 @@
     "author": "Marvel ",
     "isbn": "978-0451524123",
     "category": "action",
-    "available": true
+    "available": false,
+    "borrowedBy": null,
+    "borrowedAt": null,
+    "dueDate": null
   },
   {
     "id": 5,
@@ -29,7 +24,10 @@
     "author": "Marvel ",
     "isbn": "978-0451524123",
     "category": "action",
-    "available": true
+    "available": false,
+    "borrowedBy": null,
+    "borrowedAt": null,
+    "dueDate": null
   },
   {
     "id": 6,
@@ -37,7 +35,7 @@
     "author": "Marvel ",
     "isbn": "978-0451524123",
     "category": "action",
-    "available": true,
+    "available": false,
     "borrowedBy": null,
     "borrowedAt": null,
     "dueDate": null
@@ -45,11 +43,14 @@
   {
     "id": 7,
     "title": "Avengers End Game",
-    "author": "Marvel ",
+    "author": "Marvel",
     "isbn": "978-0451524123",
     "category": "action",
     "available": true,
-    "role": "admin"
+    "role": "admin",
+    "borrowedBy": null,
+    "borrowedAt": null,
+    "dueDate": null
   },
   {
     "id": 8,
@@ -57,7 +58,7 @@
     "author": "studio mapa",
     "isbn": "978-0451524123",
     "category": "action",
-    "available": true,
+    "available": false,
     "role": "admin",
     "borrowedBy": null,
     "borrowedAt": null,
@@ -70,7 +71,10 @@
     "isbn": "978-0451524123",
     "category": "action",
     "available": true,
-    "role": "admin"
+    "role": "admin",
+    "borrowedBy": null,
+    "borrowedAt": null,
+    "dueDate": null
   },
   {
     "id": 10,
@@ -79,7 +83,10 @@
     "isbn": "978-0451524123",
     "category": "action",
     "available": true,
-    "role": "admin"
+    "role": "admin",
+    "borrowedBy": null,
+    "borrowedAt": null,
+    "dueDate": null
   },
   {
     "id": 11,
@@ -97,10 +104,10 @@
   },
   {
     "id": 13,
-    "title": "1994",
-    "author": "George Orwell",
-    "isbn": "978-0451524935",
-    "category": "Dystopian",
+    "title": "the hobbit",
+    "author": "goerge R.R",
+    "isbn": "978-0062316394",
+    "category": "fiction",
     "available": true
   }
 ]
