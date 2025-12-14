@@ -54,7 +54,7 @@ const borrowBook = (req, res) => {
       message: "Book is already borrowed",
     });
   }
-    const userActiveBorrows = borrowSheet.filter(
+  const userActiveBorrows = borrowSheet.filter(
     b => b.userId === userId && !b.returned
   );
 
@@ -76,18 +76,21 @@ const borrowBook = (req, res) => {
     });
   }
 
-  // Update book availability
+  // Update book availability and borrow details
   book.available = false;
+  book.borrowedBy = userId;
+  book.borrowedAt = new Date().toISOString().split("T")[0];
+  book.dueDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+    .toISOString()
+    .split("T")[0];
 
   // Create borrow record
   const newBorrow = {
     id: borrowSheet.length ? borrowSheet[borrowSheet.length - 1].id + 1 : 1,
     bookId,
     userId,
-    borrowDate: new Date().toISOString().split("T")[0],
-    dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-      .toISOString()
-      .split("T")[0],
+    borrowDate: book.borrowedAt,
+    dueDate: book.dueDate,
     returned: false,
   };
 

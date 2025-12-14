@@ -12,5 +12,33 @@
     "name": "Test Member",
     "email": "member@test.com",
     "password": "memberpass"
+  },
+  {
+    "id": 3,
+    "name": "emad",
+    "email": "emademad880800@gmail.com",
+    "password": "emad89548948948",
+    "role": "member"
+  },
+  {
+    "id": 4,
+    "name": "emad",
+    "email": "emad@gmail.com",
+    "password": "emad12",
+    "role": "member"
+  },
+  {
+    "id": 5,
+    "name": "emad",
+    "email": "emad12@gmail.com",
+    "password": "emad123",
+    "role": "member"
+  },
+  {
+    "id": 6,
+    "name": "emad123",
+    "email": "emad123@gmail.com",
+    "password": "emad123",
+    "role": "member"
   }
 ]

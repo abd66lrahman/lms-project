@@ -1,26 +1,167 @@
 [
   {
-    "id": 101,
-    "title": "The Hitchhiker's Guide",
-    "author": "Douglas Adams",
-    "isbn": "9780345391803",
-    "category": "Sci-Fi",
-    "available": true
+    "id": 1,
+    "title": "Atomic Habits",
+    "author": "James Clear",
+    "isbn": "9780735211292",
+    "category": "Self-Help",
+    "available": true,
+    "borrowedBy": null,
+    "borrowedAt": null,
+    "dueDate": null
   },
   {
-    "id": 102,
-    "title": "To Kill a Mockingbird",
-    "author": "Harper Lee",
-    "isbn": "9780061120084",
+    "id": 2,
+    "title": "The Alchemist",
+    "author": "Paulo Coelho",
+    "isbn": "9780060935467",
     "category": "Fiction",
-    "available": false
+    "available": true,
+    "borrowedBy": null,
+    "borrowedAt": null,
+    "dueDate": null
   },
   {
-    "id": 103,
+    "id": 3,
     "title": "Clean Code",
     "author": "Robert C. Martin",
+    "category": "Programming",
     "isbn": "9780132350884",
-    "category": "Tech",
-    "available": true
+    "available": false,
+    "borrowedBy": null,
+    "borrowedAt": null,
+    "dueDate": null
+  },
+  {
+    "id": 4,
+    "title": "1984",
+    "author": "George Orwell",
+    "category": "Dystopian",
+    "isbn": "9780451524935",
+    "available": true,
+    "borrowedBy": null,
+    "borrowedAt": null,
+    "dueDate": null
+  },
+  {
+    "id": 5,
+    "title": "Rich Dad Poor Dad",
+    "author": "Robert T. Kiyosaki",
+    "category": "Finance",
+    "isbn": "9781612680194",
+    "available": false,
+    "borrowedBy": null,
+    "borrowedAt": null,
+    "dueDate": null
+  },
+  {
+    "id": 6,
+    "title": "The Pragmatic Programmer",
+    "author": "Andrew Hunt & David Thomas",
+    "category": "Programming",
+    "isbn": "9780201616224",
+    "available": true,
+    "borrowedBy": null,
+    "borrowedAt": null,
+    "dueDate": null
+  },
+  {
+    "id": 7,
+    "title": "Think and Grow Rich",
+    "author": "Napoleon Hill",
+    "category": "Personal Development",
+    "isbn": "9781585424337",
+    "available": true,
+    "borrowedBy": null,
+    "borrowedAt": null,
+    "dueDate": null
+  },
+  {
+    "id": 8,
+    "title": "To Kill a Mockingbird",
+    "author": "Harper Lee",
+    "category": "Classic",
+    "isbn": "9780061120084",
+    "available": true,
+    "borrowedBy": null,
+    "borrowedAt": null,
+    "dueDate": null
+  },
+  {
+    "id": 9,
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "category": "Classic",
+    "isbn": "9780743273565",
+    "available": false,
+    "borrowedBy": null,
+    "borrowedAt": null,
+    "dueDate": null
+  },
+  {
+    "id": 10,
+    "title": "Sapiens: A Brief History of Humankind",
+    "author": "Yuval Noah Harari",
+    "category": "History",
+    "isbn": "9780062316097",
+    "available": true,
+    "borrowedBy": null,
+    "borrowedAt": null,
+    "dueDate": null
+  },
+  {
+    "id": 11,
+    "title": "The Lean Startup",
+    "author": "Eric Ries",
+    "category": "Business",
+    "isbn": "9780307887894",
+    "available": true,
+    "borrowedBy": null,
+    "borrowedAt": null,
+    "dueDate": null
+  },
+  {
+    "id": 12,
+    "title": "Harry Potter and the Sorcerer's Stone",
+    "author": "J.K. Rowling",
+    "category": "Fantasy",
+    "isbn": "9780590353427",
+    "available": false,
+    "borrowedBy": null,
+    "borrowedAt": null,
+    "dueDate": null
+  },
+  {
+    "id": 13,
+    "title": "Deep Work",
+    "author": "Cal Newport",
+    "category": "Productivity",
+    "isbn": "9781455586691",
+    "available": true,
+    "borrowedBy": null,
+    "borrowedAt": null,
+    "dueDate": null
+  },
+  {
+    "id": 14,
+    "title": "The Art of War",
+    "author": "Sun Tzu",
+    "category": "Philosophy",
+    "isbn": "9781590302255",
+    "available": true,
+    "borrowedBy": null,
+    "borrowedAt": null,
+    "dueDate": null
+  },
+  {
+    "id": 14,
+    "title": "OMDA",
+    "author": "Emad Ahmed",
+    "isbn": "1659445698144",
+    "category": "Programming",
+    "available": true,
+    "borrowedBy": null,
+    "borrowedAt": null,
+    "dueDate": null
   }
 ]

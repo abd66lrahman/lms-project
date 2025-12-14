@@ -5,7 +5,8 @@
     "userId": 2,
     "borrowDate": "2025-12-01",
     "dueDate": "2025-12-08",
-    "returned": false
+    "returned": true,
+    "returnDate": "2025-12-14"
   },
   {
     "id": 2,
@@ -15,5 +16,226 @@
     "dueDate": "2025-11-22",
     "returned": true,
     "returnDate": "2025-11-18"
+  },
+  {
+    "id": 3,
+    "bookId": 101,
+    "userId": 4,
+    "borrowDate": "2025-12-14",
+    "dueDate": "2025-12-21",
+    "returned": true,
+    "returnDate": "2025-12-14"
+  },
+  {
+    "id": 4,
+    "bookId": 104,
+    "userId": 5,
+    "borrowDate": "2025-12-14",
+    "dueDate": "2025-12-21",
+    "returned": false
+  },
+  {
+    "id": 5,
+    "bookId": 102,
+    "userId": 5,
+    "borrowDate": "2025-12-14",
+    "dueDate": "2025-12-21",
+    "returned": false
+  },
+  {
+    "id": 6,
+    "bookId": 101,
+    "userId": 5,
+    "borrowDate": "2025-12-14",
+    "dueDate": "2025-12-21",
+    "returned": false
+  },
+  {
+    "id": 7,
+    "bookId": 105,
+    "userId": 5,
+    "borrowDate": "2025-12-14",
+    "dueDate": "2025-12-21",
+    "returned": true,
+    "returnDate": "2025-12-14"
+  },
+  {
+    "id": 8,
+    "bookId": 105,
+    "userId": 5,
+    "borrowDate": "2025-12-14",
+    "dueDate": "2025-12-21",
+    "returned": true,
+    "returnDate": "2025-12-14"
+  },
+  {
+    "id": 9,
+    "bookId": 105,
+    "userId": 5,
+    "borrowDate": "2025-12-14",
+    "dueDate": "2025-12-21",
+    "returned": false
+  },
+  {
+    "id": 10,
+    "bookId": 1,
+    "userId": 6,
+    "borrowDate": "2025-12-14",
+    "dueDate": "2025-12-21",
+    "returned": true,
+    "returnDate": "2025-12-14"
+  },
+  {
+    "id": 11,
+    "bookId": 1,
+    "userId": 6,
+    "borrowDate": "2025-12-14",
+    "dueDate": "2025-12-21",
+    "returned": true,
+    "returnDate": "2025-12-14"
+  },
+  {
+    "id": 12,
+    "bookId": 2,
+    "userId": 6,
+    "borrowDate": "2025-12-14",
+    "dueDate": "2025-12-21",
+    "returned": true,
+    "returnDate": "2025-12-14"
+  },
+  {
+    "id": 13,
+    "bookId": 1,
+    "userId": 6,
+    "borrowDate": "2025-12-14",
+    "dueDate": "2025-12-21",
+    "returned": true,
+    "returnDate": "2025-12-14"
+  },
+  {
+    "id": 14,
+    "bookId": 2,
+    "userId": 6,
+    "borrowDate": "2025-12-14",
+    "dueDate": "2025-12-21",
+    "returned": true,
+    "returnDate": "2025-12-14"
+  },
+  {
+    "id": 15,
+    "bookId": 1,
+    "userId": 6,
+    "borrowDate": "2025-12-14",
+    "dueDate": "2025-12-21",
+    "returned": true,
+    "returnDate": "2025-12-14"
+  },
+  {
+    "id": 16,
+    "bookId": 2,
+    "userId": 6,
+    "borrowDate": "2025-12-14",
+    "dueDate": "2025-12-21",
+    "returned": true,
+    "returnDate": "2025-12-14"
+  },
+  {
+    "id": 17,
+    "bookId": 6,
+    "userId": 6,
+    "borrowDate": "2025-12-14",
+    "dueDate": "2025-12-21",
+    "returned": true,
+    "returnDate": "2025-12-14"
+  },
+  {
+    "id": 18,
+    "bookId": 14,
+    "userId": 6,
+    "borrowDate": "2025-12-14",
+    "dueDate": "2025-12-21",
+    "returned": true,
+    "returnDate": "2025-12-14"
+  },
+  {
+    "id": 19,
+    "bookId": 4,
+    "userId": 6,
+    "borrowDate": "2025-12-14",
+    "dueDate": "2025-12-21",
+    "returned": true,
+    "returnDate": "2025-12-14"
+  },
+  {
+    "id": 20,
+    "bookId": 14,
+    "userId": 6,
+    "borrowDate": "2025-12-14",
+    "dueDate": "2025-12-21",
+    "returned": true,
+    "returnDate": "2025-12-14"
+  },
+  {
+    "id": 21,
+    "bookId": 1,
+    "userId": 6,
+    "borrowDate": "2025-12-14",
+    "dueDate": "2025-12-21",
+    "returned": true,
+    "returnDate": "2025-12-14"
+  },
+  {
+    "id": 22,
+    "bookId": 14,
+    "userId": 6,
+    "borrowDate": "2025-12-14",
+    "dueDate": "2025-12-21",
+    "returned": true,
+    "returnDate": "2025-12-14"
+  },
+  {
+    "id": 23,
+    "bookId": 6,
+    "userId": 6,
+    "borrowDate": "2025-12-14",
+    "dueDate": "2025-12-21",
+    "returned": true,
+    "returnDate": "2025-12-14"
+  },
+  {
+    "id": 24,
+    "bookId": 13,
+    "userId": 6,
+    "borrowDate": "2025-12-14",
+    "dueDate": "2025-12-21",
+    "returned": true,
+    "returnDate": "2025-12-14"
+  },
+  {
+    "id": 25,
+    "bookId": 4,
+    "userId": 6,
+    "borrowDate": "2025-12-14",
+    "dueDate": "2025-12-21",
+    "returned": true,
+    "returnDate": "2025-12-14"
+  },
+  {
+    "id": 26,
+    "bookId": 11,
+    "userId": 6,
+    "borrowDate": "2025-12-14",
+    "dueDate": "2025-12-21",
+    "returned": true,
+    "returnDate": "2025-12-14"
+  },
+  {
+    "id": 27,
+    "bookId": 1,
+    "userId": 6,
+    "borrowDate": "2025-12-14",
+    "dueDate": "2025-12-21",
+    "returned": true,
+    "returnDate": "2025-12-14"
   }
 ]

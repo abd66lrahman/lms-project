@@ -1,6 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
 import { Eye, EyeOff, LogOut, Book, Search, Filter } from "lucide-react";
 import { AdminPanel } from "./AdminPanel";
+import Auth from "./Auth";
+import ThemeToggle from './ThemeToggle';
+import "./admin.css";
+import "./user.css";
 
 const API = "http://localhost:3000/api";
 
@@ -17,6 +21,7 @@ export default function App() {
     name: "",
     email: "",
     password: "",
+    confirm: "",
   });
   const [showPassword, setShowPassword] = useState(false);
 
@@ -26,6 +31,8 @@ export default function App() {
   const [filterCategory, setFilterCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [myBorrows, setMyBorrows] = useState([]);
+  const [borrowHistory, setBorrowHistory] = useState([]);
+  const [activeTab, setActiveTab] = useState("browse"); // browse, borrows, history
 
   // Wrap functions with useCallback to fix dependencies
   const fetchBooks = useCallback(async () => {
@@ -66,21 +73,22 @@ export default function App() {
 
       if (data.data?.history) {
         const active = data.data.history.filter((h) => !h.returned);
+        const returned = data.data.history.filter((h) => h.returned);
         console.log("Active borrows (not returned):", active);
         console.log("Active borrows count:", active.length);
-
-        // Check if any are marked as returned
-        const returned = data.data.history.filter((h) => h.returned);
         console.log("Returned books:", returned);
 
         setMyBorrows(active);
+        setBorrowHistory(returned);
       } else {
         console.log("No history found");
         setMyBorrows([]);
+        setBorrowHistory([]);
       }
     } catch (err) {
       console.error("Error fetching borrows:", err);
       setMyBorrows([]);
+      setBorrowHistory([]);
     }
   }, [user]);
 
@@ -99,6 +107,7 @@ export default function App() {
   const handleLogin = async () => {
     if (!loginData.email || !loginData.password) {
       setMessage("Email and password required");
+      setTimeout(() => setMessage(""), 3000);
       return;
     }
     setLoading(true);
@@ -121,9 +130,11 @@ export default function App() {
         setLoginData({ email: "", password: "" });
       } else {
         setMessage(data.message || "Login failed");
+        setTimeout(() => setMessage(""), 3000);
       }
     } catch (err) {
       setMessage("Connection error");
+      setTimeout(() => setMessage(""), 3000);
     } finally {
       setLoading(false);
     }
@@ -132,6 +143,12 @@ export default function App() {
   const handleRegister = async () => {
     if (!registerData.name || !registerData.email || !registerData.password) {
       setMessage("All fields required");
+      setTimeout(() => setMessage(""), 3000);
+      return;
+    }
+    if (registerData.password !== registerData.confirm) {
+      setMessage("Passwords do not match");
+      setTimeout(() => setMessage(""), 3000);
       return;
     }
     setLoading(true);
@@ -145,13 +162,15 @@ export default function App() {
       const data = await res.json();
       if (res.ok) {
         setMessage("Registration successful! Please login.");
+        setTimeout(() => setMessage(""), 3000);
         setAuthPage("login");
-        setRegisterData({ name: "", email: "", password: "" });
+        setRegisterData({ name: "", email: "", password: "", confirm: "" });
       } else {
         setMessage(data.message || "Registration failed");
       }
     } catch (err) {
       setMessage("Connection error");
+      setTimeout(() => setMessage(""), 3000);
     } finally {
       setLoading(false);
     }
@@ -170,17 +189,20 @@ export default function App() {
 
       if (res.ok) {
         setMessage("Book borrowed successfully!");
+        setTimeout(() => setMessage(""), 3000);
         fetchBooks();
         fetchMyBorrows();
       } else {
         // Show the actual error message from backend
         const errorMsg = data.message || data.error || "Failed to borrow";
         setMessage(errorMsg);
+        setTimeout(() => setMessage(""), 3000);
         console.error("Borrow failed:", data);
       }
     } catch (err) {
       console.error("Borrow error:", err);
       setMessage("Error borrowing book");
+      setTimeout(() => setMessage(""), 3000);
     }
   };
 
@@ -196,16 +218,35 @@ export default function App() {
       console.log("Return response:", data);
 
       if (res.ok) {
-        setMessage("Book returned successfully!");
-        fetchBooks();
-        fetchMyBorrows();
+        setMessage("✓ Book returned successfully! Switching to history...");
+
+        // Refresh data and wait for completion
+        await fetchBooks();
+        await fetchMyBorrows();
+
+        // Switch to history tab after data is refreshed
+        setTimeout(() => {
+          setActiveTab("history");
+          // Clear message after switching to history
+          setTimeout(() => {
+            setMessage("");
+          }, 2000);
+        }, 1500);
       } else {
         setMessage(data.message || "Failed to return");
         console.error("Return failed:", data);
+        // Auto-dismiss error message
+        setTimeout(() => {
+          setMessage("");
+        }, 3000);
       }
     } catch (err) {
       console.error("Return error:", err);
       setMessage("Error returning book");
+      // Auto-dismiss error message
+      setTimeout(() => {
+        setMessage("");
+      }, 3000);
     }
   };
 
@@ -215,6 +256,8 @@ export default function App() {
     setAuthPage("login");
     setBooks([]);
     setMyBorrows([]);
+    setBorrowHistory([]);
+    setActiveTab("browse");
   };
 
   // ADMIN PAGE
@@ -225,315 +268,250 @@ export default function App() {
   // AUTH PAGE
   if (page === "auth") {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center p-4">
-        <div className="w-full max-w-md">
-          <div className="text-center mb-8">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Book className="w-8 h-8 text-white" />
-              <h1 className="text-4xl font-bold text-white">LMS</h1>
-            </div>
-            <p className="text-blue-100">Library Management System</p>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-xl p-8">
-            {message && (
-              <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">
-                {message}
-              </div>
-            )}
-
-            <div className="flex gap-2 mb-6">
-              <button
-                onClick={() => setAuthPage("login")}
-                className={`flex-1 py-2 rounded font-semibold transition ${
-                  authPage === "login"
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-100 text-gray-700"
-                }`}
-              >
-                Login
-              </button>
-              <button
-                onClick={() => setAuthPage("register")}
-                className={`flex-1 py-2 rounded font-semibold transition ${
-                  authPage === "register"
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-100 text-gray-700"
-                }`}
-              >
-                Register
-              </button>
-            </div>
-
-            {authPage === "login" ? (
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-gray-700 font-semibold mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    value={loginData.email}
-                    onChange={(e) =>
-                      setLoginData({ ...loginData, email: e.target.value })
-                    }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                    placeholder="your@email.com"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700 font-semibold mb-2">
-                    Password
-                  </label>
-                  <div className="relative">
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      value={loginData.password}
-                      onChange={(e) =>
-                        setLoginData({ ...loginData, password: e.target.value })
-                      }
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                      placeholder="••••••"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
-                    >
-                      {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                    </button>
-                  </div>
-                </div>
-                <button
-                  onClick={handleLogin}
-                  disabled={loading}
-                  className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50"
-                >
-                  {loading ? "Logging in..." : "Login"}
-                </button>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-gray-700 font-semibold mb-2">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    value={registerData.name}
-                    onChange={(e) =>
-                      setRegisterData({ ...registerData, name: e.target.value })
-                    }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                    placeholder="John Doe"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700 font-semibold mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    value={registerData.email}
-                    onChange={(e) =>
-                      setRegisterData({
-                        ...registerData,
-                        email: e.target.value,
-                      })
-                    }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                    placeholder="your@email.com"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700 font-semibold mb-2">
-                    Password
-                  </label>
-                  <div className="relative">
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      value={registerData.password}
-                      onChange={(e) =>
-                        setRegisterData({
-                          ...registerData,
-                          password: e.target.value,
-                        })
-                      }
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                      placeholder="••••••"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
-                    >
-                      {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                    </button>
-                  </div>
-                </div>
-                <button
-                  onClick={handleRegister}
-                  disabled={loading}
-                  className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50"
-                >
-                  {loading ? "Registering..." : "Register"}
-                </button>
-              </div>
-            )}
-
-            <p className="text-center text-gray-600 text-sm mt-4">
-              Test: admin2@lms.com / admin5678
-            </p>
-          </div>
-        </div>
-      </div>
+      <Auth
+        authPage={authPage}
+        setAuthPage={setAuthPage}
+        loginData={loginData}
+        setLoginData={setLoginData}
+        registerData={registerData}
+        setRegisterData={setRegisterData}
+        showPassword={showPassword}
+        setShowPassword={setShowPassword}
+        handleLogin={handleLogin}
+        handleRegister={handleRegister}
+        loading={loading}
+        message={message}
+      />
     );
+
   }
+
 
   // MEMBER BOOKS PAGE
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <Book className="w-6 h-6 text-blue-600" />
-            <h1 className="text-2xl font-bold text-gray-900">LMS</h1>
-          </div>
-          <div className="flex items-center gap-4">
-            <span className="text-gray-700">
-              Welcome, <strong>{user.name}</strong>
+    <div className="user-page">
+      <header className="user-header">
+        <div className="user-header-content">
+          <div className="user-logo-brand">
+            <span className="user-logo-text">
+              LMS
             </span>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
-            >
-              <LogOut size={18} /> Logout
+            <Book size={24} className="user-logo-svg" aria-hidden />
+          </div>
+          <div className="user-info-section">
+            <ThemeToggle />
+            <div className="user-avatar">
+              {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+            </div>
+            <div className="user-welcome">
+              Welcome, <strong>{user.name}</strong>
+            </div>
+            <button onClick={handleLogout} className="user-logout-btn">
+              <span>↪</span>
+              <span>Logout</span>
             </button>
           </div>
         </div>
       </header>
 
       {message && (
-        <div className="bg-green-100 text-green-700 p-4 m-4 rounded">
-          {message}
+        <div className="user-main">
+          <div className={`user-message ${message.includes('Error') || message.includes('failed') ? 'error' : ''}`}>
+            {message}
+          </div>
         </div>
       )}
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {myBorrows.length > 0 && (
-          <div className="mb-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
-            <h2 className="text-xl font-bold text-blue-900 mb-4">
-              📚 My Active Borrows ({myBorrows.length}/5)
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {myBorrows.map((borrow) => {
-                console.log("Rendering borrow:", borrow);
+      <div className="user-main">
+        {/* Tab Navigation */}
+        <div className="user-tabs">
+          <button
+            className={`user-tab ${activeTab === "browse" ? "active" : ""}`}
+            onClick={() => setActiveTab("browse")}
+          >
+            📖 Browse Books
+          </button>
+          <button
+            className={`user-tab ${activeTab === "borrows" ? "active" : ""}`}
+            onClick={() => setActiveTab("borrows")}
+          >
+            📚 My Active Borrows
+            {myBorrows.length > 0 && (
+              <span className="user-tab-badge">
+                {myBorrows.length}/5
+              </span>
+            )}
+          </button>
+          <button
+            className={`user-tab ${activeTab === "history" ? "active" : ""}`}
+            onClick={() => setActiveTab("history")}
+          >
+            📜 History ({borrowHistory.length})
+          </button>
+        </div>
+
+        {/* Browse Books Tab */}
+        {activeTab === "browse" && (
+          <div className="books-section">
+            <h2 className="books-header">📖 Browse and Manage Books</h2>
+
+            <div className="books-filters">
+              <div className="filter-input-wrapper">
+                <Search className="filter-icon" size={20} />
+                <input
+                  type="text"
+                  placeholder="Search by title or author..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="filter-input"
+                />
+              </div>
+              <div className="filter-input-wrapper">
+                <Filter className="filter-icon" size={20} />
+                <select
+                  value={filterCategory}
+                  onChange={(e) => setFilterCategory(e.target.value)}
+                  className="filter-select"
+                >
+                  <option value="">All Categories</option>
+                  {categories.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="books-grid">
+              {books.map((book) => {
+                const isBorrowed = myBorrows.some((b) => b.bookId === book.id);
                 return (
-                  <div
-                    key={borrow.bookId}
-                    className="bg-white p-4 rounded-lg border border-blue-200"
-                  >
-                    <h3 className="font-bold text-gray-900">{borrow.title}</h3>
-                    <p className="text-gray-600 text-sm">{borrow.author}</p>
-                    <p className="text-xs text-gray-500 mt-2">
-                      Due: {borrow.dueDate}
-                    </p>
+                  <div key={book.id} className="book-card">
+                    <h3 className="book-card-title">{book.title}</h3>
+                    <p className="book-card-author">{book.author}</p>
+                    <span className="book-card-category">{book.category}</span>
+                    <p className="book-card-isbn">ISBN: {book.isbn}</p>
+
                     <button
-                      onClick={() => handleReturn(borrow.bookId)}
-                      className="w-full mt-3 bg-green-600 text-white py-2 rounded hover:bg-green-700 text-sm"
+                      onClick={() => handleBorrow(book.id)}
+                      disabled={
+                        !book.available || isBorrowed || myBorrows.length >= 5
+                      }
+                      className="book-borrow-btn"
                     >
-                      Return Book
+                      {!book.available
+                        ? "Unavailable"
+                        : isBorrowed
+                          ? "Already Borrowed"
+                          : myBorrows.length >= 5
+                            ? "Max Limit Reached"
+                            : "Borrow"}
                     </button>
                   </div>
                 );
               })}
             </div>
+
+            {books.length === 0 && (
+              <div className="empty-state">
+                <div className="empty-state-icon">📚</div>
+                <p className="empty-state-text">
+                  No books found. Try adjusting your search or filter.
+                </p>
+              </div>
+            )}
+            <button
+              className="scroll-to-top"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              title="Scroll to top"
+            >
+              ↑
+            </button>
           </div>
         )}
 
-        <div className="bg-white rounded-lg shadow p-6 mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            📖 Browse Books
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <div className="relative">
-              <Search
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-                size={20}
-              />
-              <input
-                type="text"
-                placeholder="Search by title or author..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-              />
+        {/* My Active Borrows Tab */}
+        {activeTab === "borrows" && (
+          <div className="borrows-section">
+            <div className="borrows-header">
+              <h2 className="borrows-title">
+                📚 My Active Borrows
+                <span className="borrows-count">{myBorrows.length}/5</span>
+              </h2>
             </div>
-            <div className="relative">
-              <Filter
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-                size={20}
-              />
-              <select
-                value={filterCategory}
-                onChange={(e) => setFilterCategory(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-              >
-                <option value="">All Categories</option>
-                {categories.map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat}
-                  </option>
+
+            {myBorrows.length > 0 ? (
+              <div className="borrows-grid">
+                {myBorrows.map((borrow) => (
+                  <div key={borrow.bookId} className="borrow-card">
+                    <h3 className="borrow-card-title">{borrow.title}</h3>
+                    <p className="borrow-card-author">{borrow.author}</p>
+
+                    <div className="borrow-card-meta">
+                      <div className="borrow-card-meta-item">
+                        <span className="borrow-card-meta-label">Borrowed Date:</span>
+                        <span className="borrow-card-meta-value">
+                          {new Date(borrow.borrowedOn).toLocaleDateString('en-US')}
+                        </span>
+                      </div>
+                      <div className="borrow-card-meta-item">
+                        <span className="borrow-card-meta-label">Due Date:</span>
+                        <span className="borrow-card-meta-value">{borrow.dueDate}</span>
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={() => handleReturn(borrow.bookId)}
+                      className="borrow-return-btn"
+                    >
+                      ↩ Return Book
+                    </button>
+                  </div>
                 ))}
-              </select>
-            </div>
+              </div>
+            ) : (
+              <div className="empty-state">
+                <div className="empty-state-icon">📚</div>
+                <p className="empty-state-text">
+                  You have no active borrows.
+                </p>
+              </div>
+            )}
           </div>
+        )}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {books.map((book) => {
-              const isBorrowed = myBorrows.some((b) => b.bookId === book.id);
-              return (
-                <div
-                  key={book.id}
-                  className="bg-white border border-gray-200 rounded-lg shadow hover:shadow-lg transition p-6"
-                >
-                  <h3 className="font-bold text-gray-900 mb-2">{book.title}</h3>
-                  <p className="text-gray-600 mb-1">{book.author}</p>
-                  <p className="text-xs text-gray-500 mb-3">{book.category}</p>
-                  <p className="text-sm text-gray-400 mb-4">
-                    ISBN: {book.isbn}
-                  </p>
+        {/* History Tab */}
+        {activeTab === "history" && (
+          <div className="history-section">
+            <h2 className="history-title">📜 Borrowing History</h2>
 
-                  <button
-                    onClick={() => handleBorrow(book.id)}
-                    disabled={
-                      !book.available || isBorrowed || myBorrows.length >= 5
-                    }
-                    className={`w-full py-2 rounded text-sm font-semibold transition ${
-                      !book.available || isBorrowed || myBorrows.length >= 5
-                        ? "bg-gray-300 text-gray-600 cursor-not-allowed"
-                        : "bg-blue-600 text-white hover:bg-blue-700"
-                    }`}
-                  >
-                    {!book.available
-                      ? "Unavailable"
-                      : isBorrowed
-                        ? "Already Borrowed"
-                        : myBorrows.length >= 5
-                          ? "Max Limit Reached"
-                          : "Borrow"}
-                  </button>
-                </div>
-              );
-            })}
+            {borrowHistory.length > 0 ? (
+              <div className="history-list">
+                {borrowHistory.map((item, index) => (
+                  <div key={index} className="history-item">
+                    <div className="history-item-info">
+                      <h3 className="history-item-title">{item.title}</h3>
+                      <p className="history-item-author">{item.author}</p>
+                      <div className="history-item-dates">
+                        <span>Borrowed: {new Date(item.borrowedOn).toLocaleDateString()}</span>
+                        <span>Returned: {item.returnedOn ? new Date(item.returnedOn).toLocaleDateString() : 'N/A'}</span>
+                      </div>
+                    </div>
+                    <div className="history-item-badge">✓ Returned</div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="empty-state">
+                <div className="empty-state-icon">📜</div>
+                <p className="empty-state-text">
+                  No borrowing history yet.
+                </p>
+              </div>
+            )}
           </div>
-
-          {books.length === 0 && (
-            <div className="text-center py-8 text-gray-500">
-              No books found. Try adjusting your search or filter.
-            </div>
-          )}
-        </div>
+        )}
       </div>
     </div>
   );
