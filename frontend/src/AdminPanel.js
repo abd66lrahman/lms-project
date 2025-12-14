@@ -141,42 +141,46 @@ export function AdminPanel({ user, onLogout }) {
   };
 
   const handleEditBook = async () => {
-    if (
-      !formData.title ||
-      !formData.author ||
-      !formData.category ||
-      !formData.isbn
-    ) {
-      setMessage("All fields are required");
-      setMessageType("error");
-      return;
-    }
+    // Removed strict client-side validation (for all fields)
+    // to allow partial updates (PATCH request).
+    // The backend (booksController.js) handles validation to ensure
+    // at least one field is provided for update (title, author, category, or available).
 
     try {
       const res = await fetch(`${API}/books/${editingId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          // Note: ISBN is intentionally excluded here as it's typically immutable.
           title: formData.title,
           author: formData.author,
           category: formData.category,
           available: formData.available,
-          id: user.id,
+          id: user.id, // User ID for authentication
         }),
       });
 
       if (res.ok) {
         setMessage("Book updated successfully!");
         setMessageType("success");
-        setFormData({ title: "", author: "", category: "", isbn: "" });
+        // Ensure all fields are reset, including the new 'available' field
+        setFormData({
+          title: "",
+          author: "",
+          category: "",
+          isbn: "",
+          available: true,
+        });
         setEditingId(null);
         fetchBooks();
       } else {
-        setMessage("Error updating book");
+        // IMPROVED: Fetch and display the specific error message from the backend
+        const data = await res.json();
+        setMessage(data.message || "Error updating book");
         setMessageType("error");
       }
     } catch (err) {
-      setMessage("Error updating book");
+      setMessage("Error updating book (Network/Connection issue)");
       setMessageType("error");
     }
   };

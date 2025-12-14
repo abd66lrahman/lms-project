@@ -4,9 +4,9 @@ import { restrictTo } from "./../middleware/auth.js";
 
 const Router = express.Router();
 
-// Borrow book - Members and Admins can borrow
+// Borrow book
 Router.route("/:id").post(
-  restrictTo("admin", "member"), // ✅ Added authentication
+  restrictTo("member"), // <-- Only 'member' is now allowed
   borrowBook
 );
 
