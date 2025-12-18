@@ -77,7 +77,8 @@
     "userId": 5,
     "borrowDate": "2025-12-14",
     "dueDate": "2025-12-21",
-    "returned": false
+    "returned": true,
+    "returnDate": "2025-12-18"
   },
   {
     "id": 10,
@@ -85,7 +86,8 @@
     "userId": 5,
     "borrowDate": "2025-12-14",
     "dueDate": "2025-12-21",
-    "returned": false
+    "returned": true,
+    "returnDate": "2025-12-18"
   },
   {
     "id": 11,
@@ -102,7 +104,8 @@
     "userId": 5,
     "borrowDate": "2025-12-16",
     "dueDate": "2025-12-23",
-    "returned": false
+    "returned": true,
+    "returnDate": "2025-12-18"
   },
   {
     "id": 13,
@@ -110,6 +113,87 @@
     "userId": 5,
     "borrowDate": "2025-12-16",
     "dueDate": "2025-12-23",
+    "returned": true,
+    "returnDate": "2025-12-18"
+  },
+  {
+    "id": 14,
+    "bookId": 105,
+    "userId": 5,
+    "borrowDate": "2025-12-18",
+    "dueDate": "2025-12-25",
+    "returned": true,
+    "returnDate": "2025-12-18"
+  },
+  {
+    "id": 15,
+    "bookId": 102,
+    "userId": 5,
+    "borrowDate": "2025-12-18",
+    "dueDate": "2025-12-25",
+    "returned": true,
+    "returnDate": "2025-12-18"
+  },
+  {
+    "id": 16,
+    "bookId": 102,
+    "userId": 5,
+    "borrowDate": "2025-12-18",
+    "dueDate": "2025-12-25",
+    "returned": true,
+    "returnDate": "2025-12-18"
+  },
+  {
+    "id": 17,
+    "bookId": 102,
+    "userId": 5,
+    "borrowDate": "2025-12-18",
+    "dueDate": "2025-12-25",
+    "returned": true,
+    "returnDate": "2025-12-18"
+  },
+  {
+    "id": 18,
+    "bookId": 101,
+    "userId": 5,
+    "borrowDate": "2025-12-18",
+    "dueDate": "2025-12-25",
+    "returned": true,
+    "returnDate": "2025-12-18"
+  },
+  {
+    "id": 19,
+    "bookId": 102,
+    "userId": 5,
+    "borrowDate": "2025-12-18",
+    "dueDate": "2025-12-25",
+    "returned": true,
+    "returnDate": "2025-12-18"
+  },
+  {
+    "id": 20,
+    "bookId": 103,
+    "userId": 5,
+    "borrowDate": "2025-12-18",
+    "dueDate": "2025-12-25",
+    "returned": true,
+    "returnDate": "2025-12-18"
+  },
+  {
+    "id": 21,
+    "bookId": 102,
+    "userId": 5,
+    "borrowDate": "2025-12-18",
+    "dueDate": "2025-12-25",
     "returned": false
+  },
+  {
+    "id": 22,
+    "bookId": 101,
+    "userId": 5,
+    "borrowDate": "2025-12-19",
+    "dueDate": "2025-12-26",
+    "returned": true,
+    "returnDate": "2025-12-19"
   }
 ]

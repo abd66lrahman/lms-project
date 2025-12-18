@@ -5,10 +5,10 @@
     "author": "Thomas H. Cormen",
     "category": "Computer Science",
     "isbn": "9780262033848",
-    "available": false,
-    "borrowedBy": 5,
-    "borrowedAt": "2025-12-16",
-    "dueDate": "2025-12-23"
+    "available": true,
+    "borrowedBy": null,
+    "borrowedAt": null,
+    "dueDate": null
   },
   {
     "id": 102,
@@ -18,8 +18,8 @@
     "isbn": "9780262510875",
     "available": false,
     "borrowedBy": 5,
-    "borrowedAt": "2025-12-16",
-    "dueDate": "2025-12-23"
+    "borrowedAt": "2025-12-18",
+    "dueDate": "2025-12-25"
   },
   {
     "id": 103,
@@ -27,10 +27,10 @@
     "author": "Erich Gamma",
     "category": "Software Engineering",
     "isbn": "9780201633610",
-    "available": false,
-    "borrowedBy": 5,
-    "borrowedAt": "2025-12-14",
-    "dueDate": "2025-12-21"
+    "available": true,
+    "borrowedBy": null,
+    "borrowedAt": null,
+    "dueDate": null
   },
   {
     "id": 104,
@@ -38,10 +38,10 @@
     "author": "Martin Fowler",
     "category": "Software Engineering",
     "isbn": "9780201485677",
-    "available": false,
-    "borrowedBy": 5,
-    "borrowedAt": "2025-12-14",
-    "dueDate": "2025-12-21"
+    "available": true,
+    "borrowedBy": null,
+    "borrowedAt": null,
+    "dueDate": null
   },
   {
     "id": 105,

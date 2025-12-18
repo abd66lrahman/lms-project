@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Eye, EyeOff, LogOut, Book, Search, Filter } from "lucide-react";
 import { AdminPanel } from "./AdminPanel";
 import Auth from "./Auth";
-import ThemeToggle from './ThemeToggle';
+import ThemeToggle from "./ThemeToggle";
 import "./admin.css";
 import "./user.css";
 
@@ -176,7 +176,7 @@ export default function App() {
     }
   };
 
- const handleBorrow = async (bookId) => {
+  const handleBorrow = async (bookId) => {
     console.log("Attempting to borrow book:", bookId, "for user:", user.id);
     try {
       const res = await fetch(`${API}/borrow/${bookId}`, {
@@ -192,8 +192,8 @@ export default function App() {
         setTimeout(() => setMessage(""), 3000);
 
         // 1. Manually update the books list to mark this book as unavailable
-        setBooks(prevBooks => 
-          prevBooks.map(book => 
+        setBooks((prevBooks) =>
+          prevBooks.map((book) =>
             book.id === bookId ? { ...book, available: false } : book
           )
         );
@@ -224,20 +224,15 @@ export default function App() {
       console.log("Return response:", data);
 
       if (res.ok) {
-        setMessage("✓ Book returned successfully! Switching to history...");
+        setMessage("✓ Book returned successfully!");
 
-       
         await fetchBooks();
         await fetchMyBorrows();
 
-        // Switch to history tab after data is refreshed
+        // Clear message after 3 seconds without switching tabs
         setTimeout(() => {
-          setActiveTab("history");
-          // Clear message after switching to history
-          setTimeout(() => {
-            setMessage("");
-          }, 2000);
-        }, 1500);
+          setMessage("");
+        }, 3000);
       } else {
         setMessage(data.message || "Failed to return");
         console.error("Return failed:", data);
@@ -289,9 +284,7 @@ export default function App() {
         message={message}
       />
     );
-
   }
-
 
   // MEMBER BOOKS PAGE
   return (
@@ -299,15 +292,13 @@ export default function App() {
       <header className="user-header">
         <div className="user-header-content">
           <div className="user-logo-brand">
-            <span className="user-logo-text">
-              LMS
-            </span>
+            <span className="user-logo-text">LMS</span>
             <Book size={24} className="user-logo-svg" aria-hidden />
           </div>
           <div className="user-info-section">
             <ThemeToggle />
             <div className="user-avatar">
-              {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+              {user.name ? user.name.charAt(0).toUpperCase() : "U"}
             </div>
             <div className="user-welcome">
               Welcome, <strong>{user.name}</strong>
@@ -322,7 +313,9 @@ export default function App() {
 
       {message && (
         <div className="user-main">
-          <div className={`user-message ${message.includes('Error') || message.includes('failed') ? 'error' : ''}`}>
+          <div
+            className={`user-message ${message.includes("Error") || message.includes("failed") ? "error" : ""}`}
+          >
             {message}
           </div>
         </div>
@@ -343,9 +336,7 @@ export default function App() {
           >
             📚 My Active Borrows
             {myBorrows.length > 0 && (
-              <span className="user-tab-badge">
-                {myBorrows.length}/5
-              </span>
+              <span className="user-tab-badge">{myBorrows.length}/5</span>
             )}
           </button>
           <button
@@ -429,7 +420,7 @@ export default function App() {
             )}
             <button
               className="scroll-to-top"
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               title="Scroll to top"
             >
               ↑
@@ -456,14 +447,20 @@ export default function App() {
 
                     <div className="borrow-card-meta">
                       <div className="borrow-card-meta-item">
-                        <span className="borrow-card-meta-label">Borrowed Date:</span>
+                        <span className="borrow-card-meta-label">
+                          Borrowed Date:
+                        </span>
                         <span className="borrow-card-meta-value">
-                          {new Date(borrow.borrowedOn).toLocaleDateString('en-US')}
+                          {borrow.borrowedOn.split("T")[0]}
                         </span>
                       </div>
                       <div className="borrow-card-meta-item">
-                        <span className="borrow-card-meta-label">Due Date:</span>
-                        <span className="borrow-card-meta-value">{borrow.dueDate}</span>
+                        <span className="borrow-card-meta-label">
+                          Due Date:
+                        </span>
+                        <span className="borrow-card-meta-value">
+                          {borrow.dueDate}
+                        </span>
                       </div>
                     </div>
 
@@ -479,9 +476,7 @@ export default function App() {
             ) : (
               <div className="empty-state">
                 <div className="empty-state-icon">📚</div>
-                <p className="empty-state-text">
-                  You have no active borrows.
-                </p>
+                <p className="empty-state-text">You have no active borrows.</p>
               </div>
             )}
           </div>
@@ -500,8 +495,10 @@ export default function App() {
                       <h3 className="history-item-title">{item.title}</h3>
                       <p className="history-item-author">{item.author}</p>
                       <div className="history-item-dates">
-                        <span>Borrowed: {new Date(item.borrowedOn).toLocaleDateString()}</span>
-                        <span>Returned: {item.returnedOn ? new Date(item.returnedOn).toLocaleDateString() : 'N/A'}</span>
+                        <span>Borrowed: {item.borrowedOn}</span>
+                        <span>
+                          Returned: {item.returnedOn ? item.returnedOn : "N/A"}
+                        </span>
                       </div>
                     </div>
                     <div className="history-item-badge">✓ Returned</div>
@@ -511,9 +508,7 @@ export default function App() {
             ) : (
               <div className="empty-state">
                 <div className="empty-state-icon">📜</div>
-                <p className="empty-state-text">
-                  No borrowing history yet.
-                </p>
+                <p className="empty-state-text">No borrowing history yet.</p>
               </div>
             )}
           </div>
